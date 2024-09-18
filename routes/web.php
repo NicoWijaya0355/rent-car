@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MantapController;
+use App\Models\Mobil;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,19 +51,51 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::post('/email/resend', 'VerificationController@resend')->name('verification.resend');
     });
 
-    Route::group(['middleware' => ['auth','verified']], function() {
+    Route::group(['middleware' => ['auth','ceklevel:Manager,Admin,Customer Service,Customer,Driver']], function() {
         /**
          * Dashboard Routes
          */
         Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
        
-        Route::resource('penduduks',PendudukController::class);
-        Route::resource('kartus',KartuController::class);
-        Route::resource('rukuns',RukunController::class);
-        
+      
+        Route::resource('customers',CustomerController::class);
+        Route::resource('mobils',MobilController::class);
+        Route::resource('transaksis',TransaksiController::class);
+        Route::resource('pegawais',PegawaiController::class);
+        Route::resource('jadwals',JadwalController::class);
+        Route::resource('drivers',DriverController::class);
+        Route::resource('promos',PromoController::class);
+        Route::resource('ratings',RatingController::class);
+        Route::resource('pemiliks',PemilikController::class);
+
+        Route::get('rating/{id}','RatingController@rata')->name('ratings.rata');
+        Route::get('bayar/{id}','TransaksiController@bayar')->name('transaksi.bayar');
+        Route::put('bayarUpdate/{id}','TransaksiController@bayarUpdate')->name('transaksi.bayarUpdate');
+        Route::get('transaksi/{id}','TransaksiController@cek1')->name('transaksi.cek1');
+        Route::put('cek/{id}','TransaksiController@cek')->name('transaksi.cek');
+        Route::put('transaksi/{id}','TransaksiController@denda')->name('transaksi.denda');
+        Route::get('get/details/{id}', 'TransaksiController@getDetails')->name('getDetails');
+
+        Route::get('/verifikasi/{id}','TransaksiController@verifikasi')->name('transaksi.verifikasi');
+        Route::get('customer/verifikasi/{id}','CustomerController@verifikasi')->name('customer.verifikasi');
+       
+        Route::get('/findDriverTelp','TransaksiController@findDriverTelp');
+        Route::get('/findDriverTarif','TransaksiController@findDriverTarif');
+
+        Route::get('/findMobilPlat','TransaksiController@findMobilPlat');
+        Route::get('/findMobilHarga','TransaksiController@findMobilHarga');
+
+        Route::get('kontrak/{id}','MobilController@kontrak')->name('mobil.kontrak');
+        Route::get('perbaharui/{id}','MobilController@kontrakAwal')->name('mobil.kontrakAwal');
+        Route::put('kontrak/{id}','MobilController@kontrakUpdate')->name('mobil.kontrakUpdate');
+        Route::get('riwayat/{id}','CustomerController@riwayat')->name('customer.riwayat');
+      
+        Route::get('exportpdf/{id}','CustomerController@export')->name('customer.export');
+
         Route::get('show', 'MantapController@index')->name('show.index');
         Route::get('profile', 'ProfileController@index')->name('profile.index');
         Route::put('profile', 'ProfileController@update')->name('profile.update');
+        Route::get('riwayatDriver/{id}','DriverController@riwayat')->name('driver.riwayat');
         // Route::resource('profiles',ProfileController::class);
     });
 });

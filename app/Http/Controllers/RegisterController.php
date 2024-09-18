@@ -28,10 +28,11 @@ class RegisterController extends Controller
      */
     public function register(RegisterRequest $request) 
     {
-        $user = User::create($request->validated());
-
+        
+        $user = User::create($request->all());
+        
         event(new Registered($user));
-
+        
         // auth()->login($user);
         // auth()->logout($user);
         return redirect('/login')->with('success', "Account successfully registered.Please Verify Your Account");

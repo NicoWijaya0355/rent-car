@@ -39,6 +39,22 @@
             @endif
         </div>
 
+        <div class="form-group form-floating mb-3">
+            
+            
+            <!-- <label for="floatingConfirmPassword">Confirm Password</label> -->
+            <select  name="level" id="jenis_kelamin" class="form-control" style="margin-bottom :10px;">
+                            <option value="" selected disabled hidden>Role</option>
+                            <option value="Customer">Customer</option>
+                            <option value="Admin">Admin</option>
+                            <option value="Customer Service">Customer Service</option>
+                            <option value="Manager">Manager</option>
+                            <option value="Driver">Driver</option>
+                            
+            </select>
+           
+        
+
         <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
         
         

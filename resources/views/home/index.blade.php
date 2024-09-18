@@ -6,7 +6,7 @@
         <h1>Home page</h1>
         <p class="lead">Only authenticated users can access this section.</p>
         <!-- <a href="{{ route('dashboard.index') }}" class="btn btn-lg btn-warning me-2">Goto Dashboard</a> -->
-        <a href="{{url('penduduks')}}" class="btn btn-lg btn-warning me-2">Goto Dashboard</a>
+        <a href="{{url('/dashboard')}}" class="btn btn-lg btn-warning me-2">Goto Dashboard</a>
         
         @endauth
 
